@@ -133,4 +133,5 @@ enum Tag {
   TUTORIEL
   GUIDE
   LETTRE
+  RAPPORT
 }
