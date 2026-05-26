@@ -1,0 +1,136 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+
+  email     String    @unique
+  password  String
+  name      String?
+
+  roles     Role[]
+  contents  Content[]
+  articles Article[]
+  documents Document[]
+
+  createdAt DateTime  @default(now())
+}
+
+model Role {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  users User[] 
+  pages Page[]
+}
+
+model NavGroup {
+  id        Int     @id @default(autoincrement())
+  name      String
+  order     Int     @default(0)
+  
+  pages     Page[]
+}
+
+model Page {
+  id           Int         @id @default(autoincrement())
+  title        String
+  slug         String      @unique
+  
+  location     NavLocation @default(HIDDEN)
+  order        Int         @default(0)
+
+  navGroup     NavGroup?   @relation(fields: [navGroupId], references: [id])
+  navGroupId   Int?
+
+  layout       Json        @default("[]")
+  type         PageType    @default(SIMPLE)
+  
+  allowedRoles Role[]
+  contents     Content[]
+  
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
+enum NavLocation {
+  HEADER     // Visible directement
+  BURGER     // Dans le menu burger
+  HIDDEN     // Non répertorié
+}
+
+model Content {
+  id          Int      @id @default(autoincrement())
+  title       String
+  body        Json
+  fileUrl     String?
+  
+  author      User     @relation(fields: [authorId], references: [id])
+  authorId    Int
+  
+  page        Page     @relation(fields: [pageId], references: [id])
+  pageId      Int
+  
+  createdAt   DateTime @default(now())
+  published   Boolean  @default(false)
+}
+
+enum PageType {
+  SIMPLE    // Page classique
+  ARTICLE      // Page qui liste des articles
+  ANNONCES  // Page de petites annonces
+  DOCUMENTS // Page de dépôt/téléchargement
+}
+
+
+model Article {
+  id            Int       @id @default(autoincrement())
+
+  title         String
+  description   String
+  content       Json
+
+  mediaUrl      String?
+  mediaType     MediaType @default(IMAGE)
+
+  author        User      @relation(fields: [authorId], references: [id])
+  authorId      Int
+
+  publishedAt   DateTime  @default(now())
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+}
+
+model Document {
+  id            Int       @id @default(autoincrement())
+  
+  title         String
+  description   String
+
+  fileData      Bytes
+  fileName      String
+  fileType      String
+
+  author        User      @relation(fields: [authorId], references: [id])
+  authorId      Int
+
+  tags          Tag[]
+
+  createdAt     DateTime  @default(now())
+}
+
+enum Tag {
+  TUTORIEL
+  GUIDE
+  LETTRE
+}
