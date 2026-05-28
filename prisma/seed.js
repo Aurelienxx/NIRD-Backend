@@ -80,37 +80,32 @@ async function main() {
     }
   });
 
-  await prisma.page.upsert({
-    where: { slug: 'about' },
-    update: {},
-    create: {
-      title: 'À propos',
-      slug: 'about',
-      location: 'HEADER',
-      order: 2,
-      navGroupId: servicesGroup.id,
-      type: 'SIMPLE',
-      layout: JSON.stringify([])
-    }
-  });
-
-  await prisma.page.upsert({
-    where: { slug: 'blog' },
-    update: {},
-    create: {
-      title: 'Blog',
-      slug: 'blog',
-      location: 'BURGER',
-      order: 3,
-      navGroupId: ressourcesGroup.id,
-      type: 'BLOG',
-      layout: JSON.stringify([]),
-      allowedRoles: {
-        connect: [{ id: authorRole.id }, { id: membreRole.id }]
+  await prisma.place.upsert({
+  where: { userId: adminUser.id },
+  update: {
+    name: 'IUT de Calais',
+    address: '19 Rue Louis David, 62100 Calais',
+    location: 'Zone de la Citadelle',
+    type: 'Établissement supérieur',
+    latitude: 50.9519,
+    longitude: 1.8589
+  },
+  create: {
+    name: 'IUT de Calais',
+    address: '19 Rue Louis David, 62100 Calais',
+    location: 'Zone de la Citadelle',
+    type: 'Établissement supérieur',
+    latitude: 50.9519,
+    longitude: 1.8589,
+    user: {
+      connect: {
+        id: adminUser.id
       }
     }
-  });
+  }
+});
 
+  console.log('✅ Place créée');
   console.log('✅ Pages créées');
   console.log('✅ Seed complété avec succès!');
 }
