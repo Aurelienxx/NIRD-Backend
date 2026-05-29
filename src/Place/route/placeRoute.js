@@ -10,7 +10,7 @@ router.get('/', placeController.getPlaces);
 router.get('/locations', placeController.getAllLocations);
 router.get('/:id', placeController.getPlace);
 router.get('/user/:userId', placeController.getPlacesByUser);
-router.post('/',authenticate, authorize(["ADMIN", "MEMBRE"]), placeController.createPlace);
+router.post('/', placeController.createPlace);
 router.put('/:id', authenticate, authorize(["ADMIN", "MEMBRE"]), placeController.updatePlace);
 router.delete('/:id', authenticate, authorize(["ADMIN"]), placeController.deletePlace);
 

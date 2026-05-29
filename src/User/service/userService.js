@@ -8,23 +8,28 @@ class UserService {
   // CREATE
   async create(data) {
     const hashedPassword = await bcrypt.hash(data.password, SALT_ROUNDS);
-    
-    // L'utilisateur reçoit toujours le rôle MEMBRE + le rôle sélectionné s'il existe
-    const rolesToConnect = [{ name: 'MEMBRE' }];
-    if (data.role && data.role !== 'MEMBRE') {
-      rolesToConnect.push({ name: data.role });
-    }
-    
+
     return await prisma.user.create({
       data: {
         email: data.email,
         name: data.name,
         password: hashedPassword,
+
+        place: data.placeId
+          ? { connect: { id: data.placeId } }
+          : undefined,
+
         roles: {
-          connect: rolesToConnect
+          connect: [
+            { name: 'MEMBRE' },
+            ...(data.roleId ? [{ id: data.roleId }] : [])
+          ]
         }
       },
-      include: { roles: true }
+      include: {
+        roles: true,
+        place: true
+      }
     });
   }
 
@@ -73,9 +78,21 @@ class UserService {
 
   // DELETE
   async delete(id) {
-    return await prisma.user.delete({
-      where: { id: parseInt(id) }
-    });
+    const userId = parseInt(id)
+
+    await prisma.user.update({
+      where: { id: userId },
+      data: {
+        roles: {
+          set: []
+        },
+        placeId: null
+      }
+    })
+
+    return prisma.user.delete({
+      where: { id: userId }
+    })
   }
 }
 

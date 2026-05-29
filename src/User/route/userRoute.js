@@ -5,7 +5,7 @@ const authenticate = require('../../Middleware/Authenticate');
 const authorize = require('../../Middleware/Authorize');
 
 router.get('/', authenticate, authorize(["ADMIN"]), userController.getUsers);
-router.post('/', authenticate, userController.createUser);
+router.post('/', userController.createUser);
 router.put('/:id', authenticate, authorize(["ADMIN", "MEMBRE"]), userController.updateUser);
 router.delete('/:id', authenticate, authorize(["ADMIN", "MEMBRE"]), userController.deleteUser);
 

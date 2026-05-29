@@ -85,7 +85,6 @@ async function main() {
   update: {
     name: 'IUT de Calais',
     address: '19 Rue Louis David, 62100 Calais',
-    location: 'Zone de la Citadelle',
     type: 'Établissement supérieur',
     latitude: 50.9519,
     longitude: 1.8589
@@ -93,7 +92,6 @@ async function main() {
   create: {
     name: 'IUT de Calais',
     address: '19 Rue Louis David, 62100 Calais',
-    location: 'Zone de la Citadelle',
     type: 'Établissement supérieur',
     latitude: 50.9519,
     longitude: 1.8589,

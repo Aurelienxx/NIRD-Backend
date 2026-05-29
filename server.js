@@ -10,6 +10,7 @@ const pageRoutes = require('./src/Page/route/pageRoute');
 const navGroupRoutes = require('./src/NavGroup/route/navGroupRoute');
 const articleRoutes = require('./src/Article/route/articleRoute');
 const documentRoutes = require('./src/Document/route/documentRoute');
+const placeRoutes = require('./src/Place/route/placeRoute');
 
 app.use(cors({
     origin: true, 
@@ -29,6 +30,6 @@ app.use('/api/pages', pageRoutes);
 app.use('/api/navgroups', navGroupRoutes);
 app.use('/api/articles', articleRoutes);
 app.use('/api/documents', documentRoutes);
-
+app.use('/api/places', placeRoutes);
 const PORT = 3000;
 app.listen(PORT, () => console.log(`🚀 Serveur démarré sur http://localhost:${PORT}`));

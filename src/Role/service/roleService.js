@@ -11,6 +11,16 @@ class RoleService {
     return await prisma.role.findMany();
   }
 
+  async getRolesSignup() {
+    return await prisma.role.findMany({
+      where: {
+        name: {
+          notIn: ['MEMBRE', 'ADMIN']
+        }
+      }
+    });
+  }
+
   async getById(id) {
     return await prisma.role.findUnique({
       where: { id: parseInt(id) }

@@ -9,6 +9,15 @@ exports.getRoles = async (req, res) => {
   }
 };
 
+exports.getRoleSignup = async (req, res) => {
+  try {
+    const role = await roleService.getRolesSignup();
+    res.status(201).json(role);
+  } catch (err) {
+    res.status(500).json({ error: "Erreur lors de la récupération des rôles" });
+  }
+};
+
 exports.createRole = async (req, res) => {
   try {
     const role = await roleService.create(req.body);
