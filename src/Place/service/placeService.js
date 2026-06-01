@@ -18,9 +18,21 @@ class PlaceService {
   async getAll() {
     return prisma.place.findMany({
       include: {
-        user: true
+        users: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            roles: {
+              select: {
+                id: true,
+                name: true
+              }
+            }
+          }
+        }
       }
-    });
+    })
   }
 
   async getAllLocations() {
@@ -40,7 +52,19 @@ class PlaceService {
         id: parseInt(id)
       },
       include: {
-        users: true
+        users: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            roles: {
+              select: {
+                id: true,
+                name: true
+              }
+            }
+          }
+        }
       }
     });
   }

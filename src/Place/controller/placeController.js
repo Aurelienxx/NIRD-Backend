@@ -6,6 +6,7 @@ exports.getPlaces = async (req, res) => {
     res.json(places);
   } catch (err) {
     res.status(500).json({ error: "Erreur lors de la récupération des lieux" });
+    console.error(err);
   }
 };
 

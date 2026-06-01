@@ -19,19 +19,6 @@ async function main() {
     create: { name: 'MEMBRE' },
   });
 
-  // 3. Créer d'autres rôles
-  const modRole = await prisma.role.upsert({
-    where: { name: 'Modérateur' },
-    update: {},
-    create: { name: 'Modérateur' },
-  });
-
-  const authorRole = await prisma.role.upsert({
-    where: { name: 'Auteur' },
-    update: {},
-    create: { name: 'Auteur' },
-  });
-
   // 4. Créer l'utilisateur Admin par défaut
   const adminPassword = "02468"; // À CHANGER
   const hashedPassword = await bcrypt.hash(adminPassword, SALT_ROUNDS);
