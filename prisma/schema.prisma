@@ -20,7 +20,7 @@ model User {
   documents Document[]
 
   place      Place?    @relation(fields: [placeId], references: [id])
-  placeId    Int?      @unique
+  placeId    Int?
 
   createdAt DateTime  @default(now())
 }

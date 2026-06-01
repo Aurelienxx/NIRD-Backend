@@ -36,7 +36,7 @@ class UserService {
   // READ (All)
   async getAll() {
     return await prisma.user.findMany({
-      include: { roles: true },
+      include: { roles: true, place: true },
       // On exclut souvent le mot de passe manuellement par sécurité dans le controller
     });
   }
@@ -45,7 +45,7 @@ class UserService {
   async getById(id) {
     return await prisma.user.findUnique({
       where: { id: parseInt(id) },
-      include: { roles: true }
+      include: { roles: true, place: true }
     });
   }
 
@@ -53,7 +53,7 @@ class UserService {
   async getByEmail(email) {
     return await prisma.user.findUnique({
       where: { email },
-      include: { roles: true }
+      include: { roles: true, place: true }
     });
   }
   // UPDATE
@@ -69,10 +69,16 @@ class UserService {
       };
     }
 
+    // Gérer la relation avec place - on peut passer placeId directement
+    // placeId peut être null pour déconnecter, ou un nombre pour connecter
+    if (data.placeId !== undefined) {
+      updateData.placeId = data.placeId;
+    }
+
     return await prisma.user.update({
       where: { id: parseInt(id) },
       data: updateData,
-      include: { roles: true }
+      include: { roles: true, place: true }
     });
   }
 

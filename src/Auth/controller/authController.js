@@ -21,7 +21,7 @@ exports.login = async (req, res) => {
     const prisma = require('../../lib/prisma');
     const userWithPassword = await prisma.user.findUnique({
       where: { email },
-      include: { roles: true }
+      include: { roles: true, place: true }
     });
 
     if (!userWithPassword) {
