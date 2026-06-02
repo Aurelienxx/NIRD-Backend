@@ -19,7 +19,6 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-// Augmenter la limite de taille pour les requêtes JSON et les formulaires (jusqu'à 50MB)
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 

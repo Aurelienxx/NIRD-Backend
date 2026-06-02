@@ -102,7 +102,7 @@ model Content {
 
 enum PageType {
   SIMPLE    // Page classique
-  ARTICLE      // Page qui liste des articles
+  ARTICLE   // Page qui liste des articles
   ANNONCES  // Page de petites annonces
   DOCUMENTS // Page de dépôt/téléchargement
 }

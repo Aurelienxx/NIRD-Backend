@@ -20,7 +20,7 @@ async function main() {
   });
 
   // 4. Créer l'utilisateur Admin par défaut
-  const adminPassword = "02468"; // À CHANGER
+  const adminPassword = "02468";
   const hashedPassword = await bcrypt.hash(adminPassword, SALT_ROUNDS);
 
   const adminUser = await prisma.user.upsert({
