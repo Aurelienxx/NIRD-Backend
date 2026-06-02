@@ -11,8 +11,12 @@ COPY . .
 
 EXPOSE 3000
 
+RUN apk add --no-cache git openssh-client bash openssl
+
 # Installer les dépendances
 RUN npm install
+
+RUN npx prisma generate
 
 # Exposer le port
 EXPOSE 3000
