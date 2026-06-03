@@ -65,7 +65,7 @@ class UserService {
     
     if (data.roles) {
       updateData.roles = {
-        set: data.roles.map(r => ({ name: r }))
+        set: data.roles.map(r => ({ id: r.id }))
       };
     }
 
