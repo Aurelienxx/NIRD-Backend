@@ -10,7 +10,7 @@ async function main() {
     where: { name: 'ADMIN' },
     update: {},
     create: { name: 'ADMIN' },
-  });
+  }); 
 
   // 2. Créer le rôle MEMBRE par défaut
   const membreRole = await prisma.role.upsert({
