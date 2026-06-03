@@ -8,10 +8,6 @@ generator client {
   binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
 model User {
   id        Int       @id @default(autoincrement())
 

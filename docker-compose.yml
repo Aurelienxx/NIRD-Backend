@@ -56,7 +56,7 @@ services:
     environment:
       # see https://ghost.org/docs/config/#configuration-options
       container__name: ${NAME}
-      database__client: postgres
+      database__client: postgresql
       database__connection__host: ${NAME}_pg
       database__connection__user: "${POSTGRES_USER}"
       database__connection__password: "${POSTGRES_PASSWORD}"
