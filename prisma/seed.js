@@ -68,7 +68,7 @@ async function main() {
   });
 
   await prisma.place.upsert({
-  where: { users: adminUser.id },
+  where: { id: 1 },
   update: {
     name: 'IUT de Calais',
     address: '19 Rue Louis David, 62100 Calais',
@@ -82,7 +82,7 @@ async function main() {
     type: 'Établissement supérieur',
     latitude: 50.9519,
     longitude: 1.8589,
-    user: {
+    users: {
       connect: {
         id: adminUser.id
       }
