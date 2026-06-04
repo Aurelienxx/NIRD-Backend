@@ -18,6 +18,7 @@ RUN npm install
 
 RUN npx prisma generate
 
+
 # Exposer le port
 EXPOSE 3000
 
@@ -25,4 +26,4 @@ EXPOSE 3000
 ENV NODE_ENV=production
 
 # Lancer l'application en mode production
-CMD ["node", "server.js"]
+CMD ["sh", "-c", "npx prisma migrate deploy && node server.js"]
