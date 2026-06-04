@@ -54,13 +54,7 @@ services:
 
     restart: always
     environment:
-      # see https://ghost.org/docs/config/#configuration-options
-      container__name: ${NAME}
-      database__client: postgresql
-      database__connection__host: ${NAME}_pg
-      database__connection__user: "${POSTGRES_USER}"
-      database__connection__password: "${POSTGRES_PASSWORD}"
-      database__connection__database: "${POSTGRES_DB}"
+      DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DB}"
 
 networks:
   web:
