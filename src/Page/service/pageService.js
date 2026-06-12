@@ -17,9 +17,7 @@ class PageService {
       },
       include: { 
         allowedRoles: true,
-        navGroup: true,
-        contents: true
-      }
+        navGroup: true,      }
     });
   }
 
@@ -28,7 +26,6 @@ class PageService {
       include: { 
         allowedRoles: true,
         navGroup: true,
-        contents: true
       },
       orderBy: { order: 'asc' }
     });
@@ -39,9 +36,7 @@ class PageService {
       where: { id: parseInt(id) },
       include: { 
         allowedRoles: true,
-        navGroup: true,
-        contents: true
-      }
+        navGroup: true,      }
     });
   }
 
@@ -62,18 +57,11 @@ class PageService {
       },
       include: { 
         allowedRoles: true,
-        navGroup: true,
-        contents: true
-      }
+        navGroup: true,      }
     });
   }
 
   async delete(id) {
-    // Supprimer les contenus associés
-    await prisma.content.deleteMany({
-      where: { pageId: parseInt(id) }
-    });
-
     // Supprimer la page
     await prisma.page.delete({
       where: { id: parseInt(id) }
@@ -86,10 +74,6 @@ class PageService {
       include: { 
         allowedRoles: true,
         navGroup: true,
-        contents: {
-          where: { published: true },
-          orderBy: { createdAt: 'desc' }
-        }
       }
     });
   }

@@ -73,7 +73,6 @@ model Page {
   type         PageType    @default(SIMPLE)
   
   allowedRoles Role[]
-  contents     Content[]
   
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
@@ -83,22 +82,6 @@ enum NavLocation {
   HEADER     // Visible directement
   BURGER     // Dans le menu burger
   HIDDEN     // Non répertorié
-}
-
-model Content {
-  id          Int      @id @default(autoincrement())
-  title       String
-  body        Json
-  fileUrl     String?
-  
-  author      User     @relation(fields: [authorId], references: [id])
-  authorId    Int
-  
-  page        Page     @relation(fields: [pageId], references: [id])
-  pageId      Int
-  
-  createdAt   DateTime @default(now())
-  published   Boolean  @default(false)
 }
 
 enum PageType {
