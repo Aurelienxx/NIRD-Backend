@@ -24,9 +24,17 @@ class DocumentService {
     });
   }
 
-  async getAll() {
+  async  getAll() {
     return await prisma.document.findMany({
-      include: {
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        fileName: true,
+        fileType: true,
+        createdAt: true,
+        tags: true,
+        authorId: true,
         author: {
           select: {
             id: true,
@@ -77,7 +85,15 @@ class DocumentService {
           has: tag
         }
       },
-      include: {
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        fileName: true,
+        fileType: true,
+        createdAt: true,
+        tags: true,
+        authorId: true,
         author: {
           select: {
             id: true,
@@ -119,16 +135,24 @@ class DocumentService {
     });
   }
 
-  async search(query) {
+  async  search(queryText) {
     return await prisma.document.findMany({
       where: {
         OR: [
-          { title: { contains: query, mode: 'insensitive' } },
-          { description: { contains: query, mode: 'insensitive' } },
-          { fileName: { contains: query, mode: 'insensitive' } }
+          { title: { contains: queryText, mode: 'insensitive' } },
+          { description: { contains: queryText, mode: 'insensitive' } },
+          { fileName: { contains: queryText, mode: 'insensitive' } }
         ]
       },
-      include: {
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        fileName: true,
+        fileType: true,
+        createdAt: true,
+        tags: true,
+        authorId: true,
         author: {
           select: {
             id: true,

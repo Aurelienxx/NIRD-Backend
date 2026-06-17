@@ -31,8 +31,8 @@ exports.getDocumentsByAuthor = async (req, res) => {
 exports.getDocumentsByTag = async (req, res) => {
   try {
     const { tag } = req.params;
-    if (!['TUTORIEL', 'GUIDE', 'LETTRE'].includes(tag)) {
-      return res.status(400).json({ error: "Tag invalide. Doit être: TUTORIEL, GUIDE ou LETTRE" });
+    if (!['TUTORIEL', 'GUIDE', 'LETTRE', 'RAPPORT'].includes(tag)) {
+      return res.status(400).json({ error: "Tag invalide. Doit être: TUTORIEL, GUIDE, LETTRE ou RAPPORT" });
     }
     
     const documents = await documentService.getByTag(tag);
@@ -91,10 +91,10 @@ exports.createDocument = async (req, res) => {
 
     // Validation des tags si fournis
     if (tags && Array.isArray(tags)) {
-      const validTags = ['TUTORIEL', 'GUIDE', 'LETTRE'];
+      const validTags = ['TUTORIEL', 'GUIDE', 'LETTRE', 'RAPPORT'];
       for (const tag of tags) {
         if (!validTags.includes(tag)) {
-          return res.status(400).json({ error: "Tag invalide. Tags valides: TUTORIEL, GUIDE, LETTRE" });
+          return res.status(400).json({ error: "Tag invalide. Tags valides: TUTORIEL, GUIDE, LETTRE, RAPPORT" });
         }
       }
     }
@@ -120,10 +120,10 @@ exports.updateDocument = async (req, res) => {
 
     // Validation des tags si fournis
     if (tags && Array.isArray(tags)) {
-      const validTags = ['TUTORIEL', 'GUIDE', 'LETTRE'];
+      const validTags = ['TUTORIEL', 'GUIDE', 'LETTRE', 'RAPPORT'];
       for (const tag of tags) {
         if (!validTags.includes(tag)) {
-          return res.status(400).json({ error: "Tag invalide. Tags valides: TUTORIEL, GUIDE, LETTRE" });
+          return res.status(400).json({ error: "Tag invalide. Tags valides: TUTORIEL, GUIDE, LETTRE, RAPPORT" });
         }
       }
     }
