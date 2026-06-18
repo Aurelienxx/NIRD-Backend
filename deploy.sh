@@ -51,7 +51,5 @@ echo "=== Rebuilding stack ==="
 docker compose down
 docker compose up -d
 
-npx prisma generate
-npx prisma migrate deploy
 
 echo "Deployment completed at $(date)"
